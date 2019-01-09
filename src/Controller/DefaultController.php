@@ -1,30 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: skillup_student
- * Date: 09.01.19
- * Time: 19:49
- */
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController
+class DefaultController extends AbstractController
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="default")
      */
-    public function index(){
-        return new Response('<h1>Hello</h1>');
-
+    public function index()
+    {
+        return $this->render('default/index.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
     }
-    /**
-     * @Route("/about", name="about")
-     */
-    public function about(){
-        return new Response('<h1>About us</h1>');
-    }
-
 }
