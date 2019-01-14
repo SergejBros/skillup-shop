@@ -13,7 +13,9 @@ class DefaultController extends AbstractController
      */
     public function index(ProductRepository $productRepository)
     {
-        $products = $productRepository->findAll();
+        $products = $productRepository->findBy([
+                'isTop' => true
+            ]);
         return $this->render('default/index.html.twig', [
             'products' => $products,
         ]);

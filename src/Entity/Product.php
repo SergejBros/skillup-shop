@@ -32,6 +32,17 @@ class Product
      */
     private $price;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":false})
+     */
+    private $isTop;
+
+    public function __construct()
+    {
+        $this->isTop = false;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -65,10 +76,26 @@ class Product
     {
         return $this->price;
     }
+    public function getRealPrice(): ?float
+    {
+        return $this->price/100;
+    }
 
     public function setPrice(?int $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getIsTop(): ?bool
+    {
+        return $this->isTop;
+    }
+
+    public function setIsTop(bool $isTop): self
+    {
+        $this->isTop = $isTop;
 
         return $this;
     }
