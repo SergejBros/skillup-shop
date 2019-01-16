@@ -951,78 +951,114 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="242" parent="7" name="fields">
+    <table id="242" parent="7" name="categories">
       <Collation>utf8mb4_unicode_ci</Collation>
     </table>
-    <table id="243" parent="7" name="migration_versions">
+    <table id="243" parent="7" name="fields">
+      <Collation>utf8mb4_unicode_ci</Collation>
+    </table>
+    <table id="244" parent="7" name="migration_versions">
       <Collation>utf8_unicode_ci</Collation>
     </table>
-    <table id="244" parent="7" name="products">
+    <table id="245" parent="7" name="products">
       <Collation>utf8mb4_unicode_ci</Collation>
     </table>
-    <column id="245" parent="242" name="id">
+    <column id="246" parent="242" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="246" parent="242" name="is_top">
+    <column id="247" parent="242" name="name">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="248" parent="242" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="249" parent="243" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="250" parent="243" name="is_top">
       <Position>2</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="247" parent="242" name="PRIMARY">
+    <key id="251" parent="243" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="248" parent="243" name="version">
+    <column id="252" parent="244" name="version">
       <Position>1</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="249" parent="243" name="PRIMARY">
+    <key id="253" parent="244" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>version</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="250" parent="244" name="id">
+    <column id="254" parent="245" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="251" parent="244" name="name">
+    <column id="255" parent="245" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="252" parent="244" name="description">
+    <column id="256" parent="245" name="description">
       <Position>3</Position>
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="253" parent="244" name="price">
+    <column id="257" parent="245" name="price">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="254" parent="244" name="is_top">
+    <column id="258" parent="245" name="is_top">
       <Position>5</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="255" parent="244" name="PRIMARY">
+    <column id="259" parent="245" name="category_id">
+      <Position>6</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="260" parent="245" name="IDX_B3BA5A5A12469DE2">
+      <ColNames>category_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="261" parent="245" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
+    <foreign-key id="262" parent="245" name="FK_B3BA5A5A12469DE2">
+      <ColNames>category_id</ColNames>
+      <RefSchemaName>db_name</RefSchemaName>
+      <RefTableName>categories</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
   </database-model>
 </dataSource>
