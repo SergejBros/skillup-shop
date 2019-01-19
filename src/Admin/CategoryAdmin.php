@@ -31,5 +31,9 @@ class CategoryAdmin extends AbstractAdmin
             ->add('name');
     }
 
+    protected function configureFormFields(FormMapper $form)
+    {
+        $form->add('name');
+    }
 
 }
