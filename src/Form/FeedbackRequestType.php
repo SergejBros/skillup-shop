@@ -22,7 +22,6 @@ class FeedbackRequestType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => FeedbackRequest::class
-            // Configure your form options here
         ]);
     }
 }

@@ -3,15 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FeedbackRequestRepository")
  */
 class FeedbackRequest
 {
-
-
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -21,21 +20,26 @@ class FeedbackRequest
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Email(checkHost=true, checkMX=true)
      */
     private $email;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $message;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank()
      */
     private $createdAt;
 
@@ -90,10 +94,9 @@ class FeedbackRequest
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function FeedbackRequestsetCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 }

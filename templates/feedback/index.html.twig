@@ -5,8 +5,22 @@
 {% block body %}
     <h1>Форма обратной связи</h1>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {% for message in app.flashes('info') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_widget(form) }}
+
+        <div class="form-group row">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </div>
+        </div>
+
     {{ form_end(form) }}
 
 {% endblock %}
