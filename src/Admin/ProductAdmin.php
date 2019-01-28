@@ -21,29 +21,29 @@ class ProductAdmin extends AbstractAdmin
     {
         $list
             ->addIdentifier('id')
-            ->addIdentifier('description')
+            ->addIdentifier('name')
             ->addIdentifier('price')
             ->addIdentifier('isTop')
-            ->addIdentifier('name');
+            ->addIdentifier('description');
     }
     protected function configureDatagridFilters(DatagridMapper $filter)
     {
         $filter
             ->add('id')
-            ->add('description')
+            ->add('name')
             ->add('price')
             ->add('isTop')
-            ->add('name');
+            ->add('description');
     }
 
     protected function configureFormFields(FormMapper $form)
     {
         $form
-            ->add('id')
-            ->add('description')
+           // ->add('id')
+            ->add('name')
             ->add('price')
             ->add('isTop')
-            ->add('name');
+            ->add('description');
     }
 
 

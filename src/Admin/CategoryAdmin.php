@@ -34,7 +34,7 @@ class CategoryAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form)
     {
         $form
-            ->add('id')
+            // ->add('id')
             ->add('name');
     }
 
