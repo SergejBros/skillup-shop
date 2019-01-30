@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrderItemRepository")
+ * @ORM\Table(name="order_items")
  */
 class OrderItem
 {
@@ -17,28 +18,54 @@ class OrderItem
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var Order
+     * @ORM\ManyToOne(targetEntity="App\Entity\Order", inversedBy="items")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $order;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="orderItems")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $product;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"defaul": 0})
      */
-    private $count;
+    private $quantity;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"defaul": 0})
      */
     private $price;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"defaul": 0}))
      */
     private $cost;
+
+    public function __construct(){
+        $this->quantity = 0;
+        $this->price = 0;
+        $this->cost = 0;
+    }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getOrder(): ?string
+    {
+        return $this->order;
+    }
+
+    public function setOrder(string $order): self
+    {
+        $this->order = $order;
+
+        return $this;
     }
 
     public function getProduct(): ?string
@@ -53,14 +80,14 @@ class OrderItem
         return $this;
     }
 
-    public function getCount(): ?int
+    public function getQuantity(): ?int
     {
-        return $this->count;
+        return $this->quantity;
     }
 
-    public function setCount(int $count): self
+    public function setQuantity(int $quantity): self
     {
-        $this->count = $count;
+        $this->quantity = $quantity;
 
         return $this;
     }
