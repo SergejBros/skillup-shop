@@ -56,27 +56,27 @@ class OrderItem
         return $this->id;
     }
 
-    public function getOrder(): ?string
+    public function getOrder(): ?Order
     {
         return $this->order;
     }
 
-    public function setOrder(string $order): self
+    public function setOrder(Order $order): self
     {
         $this->order = $order;
 
         return $this;
     }
 
-    public function getProduct(): ?string
+    public function getProduct(): ?Product
     {
         return $this->product;
     }
 
-    public function setProduct(string $product): self
+    public function setProduct(Product $product): self
     {
         $this->product = $product;
-
+        $this->setPrice($product->getPrice());
         return $this;
     }
 
@@ -88,6 +88,14 @@ class OrderItem
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+        $this->updateCost();
+
+        return $this;
+    }
+
+    public function addQuantity(int $value): self
+    {
+        $this->setQuantity($this->quantity + $value);
 
         return $this;
     }
@@ -100,7 +108,7 @@ class OrderItem
     public function setPrice(int $price): self
     {
         $this->price = $price;
-
+        $this->updateCost();
         return $this;
     }
 
@@ -114,5 +122,10 @@ class OrderItem
         $this->cost = $cost;
 
         return $this;
+    }
+
+    private function updateCost(){
+        $this->cost = $this->getPrice() * $this->getQuantity();
+        $this->order->updateAmount();
     }
 }

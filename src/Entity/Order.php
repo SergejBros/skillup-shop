@@ -30,19 +30,19 @@ class Order
     private $createdAt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $status;
 
     /**
      * @ORM\Column(type="boolean", options={"default":false})
      */
-    private $IsPaid;
+    private $isPaid;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $summ;
+    private $amount;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="orders")
@@ -72,12 +72,12 @@ class Order
         return $this->id;
     }
 
-    public function getCreated(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreated(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -98,25 +98,25 @@ class Order
 
     public function getIsPaid(): ?bool
     {
-        return $this->IsPaid;
+        return $this->isPaid;
     }
 
-    public function setIsPaid(bool $IsPaid): self
+    public function setIsPaid(bool $isPaid): self
     {
-        $this->IsPaid = $IsPaid;
+        $this->isPaid = $isPaid;
 
         return $this;
     }
 
 
-    public function getSumm(): ?int
+    public function getAmount(): ?int
     {
-        return $this->summ;
+        return $this->amount;
     }
 
-    public function setSumm(int $summ): self
+    public function setAmount(int $amount): self
     {
-        $this->summ = $summ;
+        $this->amount = $amount;
 
         return $this;
     }
@@ -159,7 +159,7 @@ class Order
             $this->items[] = $item;
             $item->setOrder($this);
         }
-
+        $this->updateAmount();
         return $this;
     }
 
@@ -172,7 +172,17 @@ class Order
                 $item->setOrder(null);
             }
         }
-
+        $this->updateAmount();
         return $this;
+    }
+
+    public function updateAmount(){
+        $amount = 0;
+
+        foreach ($this->getItems() as $item){
+            $amount += $item->getCost();
+        }
+
+        $this->setAmount($amount);
     }
 }
