@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ order.id }}{% endblock %}
+
+{% block body %}
+    <h1>Ваша корзина</h1>
+    <p>Номер заказа: {{ order.id }} </p>
+    <p>Сумма заказа: {{ order.amount|localizedcurrency('UAH') }} </p>
+
+{% endblock %}

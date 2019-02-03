@@ -84,18 +84,6 @@ class Order
         return $this;
     }
 
-    public function getState(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setState(string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
     public function getIsPaid(): ?bool
     {
         return $this->isPaid;
