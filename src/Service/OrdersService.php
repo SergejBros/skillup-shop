@@ -53,7 +53,7 @@ class OrdersService
         return $order;
     }
 
-    private function getOrderFromRequest()
+    public function getOrderFromRequest()
     {
         $order = null;
         $orderId = $this->request->cookies->get('orderId');

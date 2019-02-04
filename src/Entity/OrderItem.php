@@ -126,6 +126,8 @@ class OrderItem
 
     private function updateCost(){
         $this->cost = $this->getPrice() * $this->getQuantity();
-        $this->order->updateAmount();
+        if($this->order) {
+            $this->order->updateAmount();
+        }
     }
 }
