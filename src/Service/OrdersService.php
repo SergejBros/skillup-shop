@@ -72,5 +72,19 @@ class OrdersService
         return $order;
     }
 
+    public function removeItem(OrderItem $item)
+    {
+        $cart = $this->getOrderFromRequest();
+        $order = $item->getOrder();
+
+        if($cart !== $order){
+            return;
+        }
+
+        $order->removeItem($item); // убирает item из заказа
+        $this->entityManager->remove($item); // убираем item
+        $this->entityManager->flush(); // изменения в бд
+    }
+
 
 }
