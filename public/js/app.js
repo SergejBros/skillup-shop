@@ -1,9 +1,9 @@
-var addToCartButtons, cartInHeader, removeFromCartButtons;
+var addToCartButtons, cartInHeader, cartItems;
 
 addToCartButtons = $('.js-add-to-cart');
 cartInHeader = $('#cart-in-header');
-removeFromCartButtons = $('.js-remove-item');
 cartItems = $('#cartItems');
+
 addToCartButtons.on('click', function (event) {
     event.preventDefault(); /// отключили перезагрузку страницы
     mask();
@@ -16,7 +16,8 @@ addToCartButtons.on('click', function (event) {
     });
 });
 
-removeFromCartButtons.on('click', function (event) {
+// обработчик с фильтрацией, сработает если нажали на элемент класса js-remove-item
+$('body').on('click', '.js-remove-item', function (event) {
     event.preventDefault(); /// отключили перезагрузку страницы
 
     if(confirm('Действительно удалить?')){
@@ -30,6 +31,21 @@ removeFromCartButtons.on('click', function (event) {
                 unmask();
             });
     }
+});
+
+
+$('body').on('input', '.js-item-quantity', function (event) {
+    var target = $(event.currentTarget);
+
+    $.post(
+        target.data('href'),
+        {'quantity': target.val()},
+        function (data) {
+            cartItems.html(data);
+
+        }
+
+    )
 });
 
 

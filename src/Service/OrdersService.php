@@ -86,5 +86,23 @@ class OrdersService
         $this->entityManager->flush(); // изменения в бд
     }
 
+    public function setItemQuantity(OrderItem $item, $quantity)
+    {
+        $cart = $this->getOrderFromRequest();
+        $order = $item->getOrder();
+
+        if($cart !== $order){
+            return;
+        }
+
+        if($quantity < 1){
+            return;
+        }
+
+        $item->setQuantity($quantity);
+        $this->entityManager->flush();
+
+    }
+
 
 }

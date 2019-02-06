@@ -16,11 +16,14 @@
                 </a>
             </td>
             <td>{{ item.price|money }}</td>
-            <td>{{ item.quantity }}</td>
+            <td>
+                <input type="number" value="{{ item.quantity }}" min="1" class="js-item-quantity"
+                       data-href="{{ path('orders_set_item_quantity', {'id': item.id}) }}">
+            </td>
             <td>{{ item.cost|money }}</td>
             <td>
                 <a class="btn btn-danger btm-sm js-remove-item" href="{{ path('orders_remove_item', {'id': item.id}) }}">
-                    <i class="fa fa-minus-circle"></i>
+                    <i title="Удалить товар" class="fa fa-minus-circle"></i>
                 </a>
             </td>
         </tr>

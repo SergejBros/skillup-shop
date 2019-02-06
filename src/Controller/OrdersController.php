@@ -88,4 +88,22 @@ class OrdersController extends AbstractController
             return $this->redirectToRoute('orders_cart');
 
     }
+
+    /**
+     * @Route("/orders/set-item-quantity/{id}", name="orders_set_item_quantity")
+     */
+    public function setItemQuantity(OrderItem $orderItem, OrdersService $ordersService, Request $request)
+    {
+        $ordersService->setItemQuantity($orderItem,$request->request->get('quantity'));
+
+        if($request->isXmlHttpRequest())
+        {
+            return $this->render('orders/cartItems.html.twig', [
+                'cart' => $ordersService->getOrderFromRequest()
+            ]);
+
+        }
+
+        return $this->redirectToRoute('orders_cart');
+    }
 }

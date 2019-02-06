@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>{{ product.name }}</h1>
-    <p>{{ product.realPrice|money }}</p>
+    <p>{{ product.price|money }}</p>
     <p>{{ product.description|nl2br }}</p>
     <a href="{{ path('orders_add_to_cart', {'id': product.id}) }}" class="btn btn-primary js-add-to-cart">Добавить в корзину</a>
 
