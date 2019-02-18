@@ -7,24 +7,7 @@
 {% block body %}
 
     <div class="row">
-        {% for product in category.products %}
-            <div class="col-sm-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="card-text">{{ product.description }}</p>
-                        <a href="{{ path('products_item', {'id': product.id}) }}" class="btn btn-primary">Подробней</a>
-                        <br>
-                        <br>
-                        <a href="{{ path('orders_add_to_cart', {'id': product.id}) }}" class="btn btn-primary js-add-to-cart">Добавить в корзину</a>
-
-                    </div>
-                    <div class="card-footer">
-                        {{ product.price|money }}
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
+       {{ include('products/_productsLIst.html.twig', {'products': category.products}) }}
     </div>
 {% endblock %}
 
