@@ -9,6 +9,8 @@
 namespace App\Admin;
 
 use App\Entity\Category;
+use App\Entity\Product;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -19,6 +21,17 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 class ProductAdmin extends AbstractAdmin
 {
 
+    /**
+     * @var CacheManager
+     */
+    private $cacheManager;
+
+    public function __construct(string $code, string $class, string $baseControllerName, CacheManager $cacheManager)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+
+        $this->cacheManager = $cacheManager;
+    }
 
     protected function configureListFields(ListMapper $list)
     {
@@ -41,6 +54,7 @@ class ProductAdmin extends AbstractAdmin
 
     protected function configureFormFields(FormMapper $form)
     {
+        $cacheManager = $this->cacheManager;
         $form
            // ->add('id')
             ->add('name')
@@ -53,6 +67,13 @@ class ProductAdmin extends AbstractAdmin
             ->add('description')
             ->add('image', VichImageType::class, [
                 'required' => false,
+                'image_uri' => function(Product $product, $resolvedUri) use ($cacheManager)
+                {
+                    if(!$resolvedUri){
+                        return null;
+                    }
+                    return $cacheManager->getBrowserPath($resolvedUri, 'squared_thumbnail');
+                }
             ]);
     }
 
