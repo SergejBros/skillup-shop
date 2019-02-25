@@ -15,22 +15,47 @@ use App\Entity\Product;
 use App\Entity\User;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\This;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Bundle\TwigBundle\TwigEngine;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Twig\Environment;
 
 class OrdersService
 {
     private $request;
+
+    /**
+     * @var OrderRepository
+     */
     private $orderRepository;
+
+    /**
+     * @var EntityManagerInterface
+     */
     private $entityManager;
+
+    private $twig;
+
+    private $mailer;
+
+    private $parameters;
 
     public function __construct(
         RequestStack $requestStack,
         OrderRepository $orderRepository,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        Environment $twig,
+        \Swift_Mailer $mailer,
+        ParameterBagInterface $parameters
     ) {
         $this->request = $requestStack->getCurrentRequest();
         $this->orderRepository = $orderRepository;
         $this->entityManager = $entityManager;
+        $this->twig = $twig;
+        $this->mailer = $mailer;
+        $this->parameters = $parameters;
     }
 
     public function addToCart(Product $product)
@@ -82,7 +107,7 @@ class OrdersService
             return;
         }
 
-        $order->removeItem($item); // убирает item из заказа
+        $order->removeItem($item); // убираEngineInterfaceет item из заказа
         $this->entityManager->remove($item); // убираем item
         $this->entityManager->flush(); // изменения в бд
     }
@@ -127,6 +152,23 @@ class OrdersService
         $order->setStatus(Order::STATUS_ORDERED);
         $this->entityManager->persist($order);
         $this->entityManager->flush();
+        $this->sendEmail($this->parameters->get('adminEmail'), 'mail/newOrderForAdmin.html.twig', [
+            'order' => $order,
+        ]);
+    }
+
+    private function sendEmail(string $to, $templateName, array $context)
+    {
+        $template = $this->twig->load($templateName);
+        $subject = $template->renderBlock('subject', $context);
+        $body = $template->renderBlock('body', $context);
+
+        $message = new \Swift_Message();
+        $message->setSubject($subject);
+        $message->setBody($body, 'text/html');
+        $message->setTo($to);
+        $message->setFrom($this->parameters->get('fromEmail'), $this->parameters->get('fromName'));
+        $this->mailer->send($message);
     }
 
 }
