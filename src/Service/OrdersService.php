@@ -12,6 +12,7 @@ namespace App\Service;
 use App\Entity\Order;
 use App\Entity\OrderItem;
 use App\Entity\Product;
+use App\Entity\User;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -104,5 +105,28 @@ class OrdersService
 
     }
 
+    public function prepareOrder(?User $user)
+    {
+        $order = $this->getOrderFromRequest();
+
+        if($user){
+            $order->setFirstName($user->getFirstName());
+            $order->setLastName($user->getLastName());
+            $order->setEmail($user->getEmail());
+            $order->setPhone($user->getPhone());
+            $order->setAddress($user->getAddress());
+
+        }
+
+        return $order;
+
+    }
+
+    public function sendOrder(Order $order)
+    {
+        $order->setStatus(Order::STATUS_ORDERED);
+        $this->entityManager->persist($order);
+        $this->entityManager->flush();
+    }
 
 }
