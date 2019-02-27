@@ -50,6 +50,10 @@ class Product
         $this->isTop = false;
     }
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
 
     public function getId(): ?int
     {
