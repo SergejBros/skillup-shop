@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -48,6 +50,7 @@ class Product
     public function __construct()
     {
         $this->isTop = false;
+        $this->attrubuteValues = new ArrayCollection();
     }
 
     public function __toString()
@@ -164,6 +167,11 @@ class Product
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\AttrubuteValue", mappedBy="product", orphanRemoval=true)
+     */
+    private $attrubuteValues;
+
     public function getImageFileName(): ?string
     {
         return $this->imageFileName;
@@ -184,6 +192,37 @@ class Product
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AttrubuteValue[]
+     */
+    public function getAttrubuteValues(): Collection
+    {
+        return $this->attrubuteValues;
+    }
+
+    public function addAttrubuteValue(AttrubuteValue $attrubuteValue): self
+    {
+        if (!$this->attrubuteValues->contains($attrubuteValue)) {
+            $this->attrubuteValues[] = $attrubuteValue;
+            $attrubuteValue->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttrubuteValue(AttrubuteValue $attrubuteValue): self
+    {
+        if ($this->attrubuteValues->contains($attrubuteValue)) {
+            $this->attrubuteValues->removeElement($attrubuteValue);
+            // set the owning side to null (unless already changed)
+            if ($attrubuteValue->getProduct() === $this) {
+                $attrubuteValue->setProduct(null);
+            }
+        }
 
         return $this;
     }

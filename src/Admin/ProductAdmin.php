@@ -15,6 +15,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
@@ -55,26 +56,41 @@ class ProductAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form)
     {
         $cacheManager = $this->cacheManager;
-        $form
-           // ->add('id')
-            ->add('name')
-            ->add('price')
-            ->add('isTop')
-            ->add('category', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'name',
-            ])
-            ->add('description')
-            ->add('image', VichImageType::class, [
-                'required' => false,
-                'image_uri' => function(Product $product, $resolvedUri) use ($cacheManager)
-                {
-                    if(!$resolvedUri){
-                        return null;
+
+        if($this->isCurrentRoute('attributes'))
+        {
+            $form
+                ->add('attrubuteValues');
+        }
+        else {
+
+            $form
+                // ->add('id')
+                ->add('name')
+                ->add('price')
+                ->add('isTop')
+                ->add('category', EntityType::class, [
+                    'class' => Category::class,
+                    'choice_label' => 'name',
+                ])
+                ->add('description')
+                ->add('image', VichImageType::class, [
+                    'required' => false,
+                    'image_uri' => function (Product $product, $resolvedUri) use ($cacheManager) {
+                        if (!$resolvedUri) {
+                            return null;
+                        }
+                        return $cacheManager->getBrowserPath($resolvedUri, 'squared_thumbnail');
                     }
-                    return $cacheManager->getBrowserPath($resolvedUri, 'squared_thumbnail');
-                }
-            ]);
+                ]);
+        }
+    }
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('attributes', $this->getRouterIdParameter().'/attributes', [
+            '_controller' => $this->getBaseControllerName() . ':editAction',
+        ]);
     }
 
 

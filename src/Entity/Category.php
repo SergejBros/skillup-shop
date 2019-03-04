@@ -29,9 +29,15 @@ class Category
      */
     private $products;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Attribute", inversedBy="categories")
+     */
+    private $attributes;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->attributes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -77,6 +83,32 @@ class Category
             if ($product->getCategory() === $this) {
                 $product->setCategory(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|attribute[]
+     */
+    public function getAttributes(): Collection
+    {
+        return $this->attributes;
+    }
+
+    public function addAttribute(attribute $attribute): self
+    {
+        if (!$this->attributes->contains($attribute)) {
+            $this->attributes[] = $attribute;
+        }
+
+        return $this;
+    }
+
+    public function removeAttribute(attribute $attribute): self
+    {
+        if ($this->attributes->contains($attribute)) {
+            $this->attributes->removeElement($attribute);
         }
 
         return $this;

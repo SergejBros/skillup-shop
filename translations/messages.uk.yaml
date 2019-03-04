@@ -8,3 +8,9 @@ Last name: Фамилия
 First name: Имя
 Phone: Телефон
 Address: Адрес
+
+# перевод для отображения в админке вместо значений констант
+attribute:
+  type:
+    !php/const App\Entity\Attribute::TYPE_INT: Числовой
+    !php/const App\Entity\Attribute::TYPE_LIST: Список

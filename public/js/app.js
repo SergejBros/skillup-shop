@@ -42,6 +42,7 @@ $('body').on('input', '.js-item-quantity', function (event) {
         {'quantity': target.val()},
         function (data) {
             cartItems.html(data);
+            cartInHeader.load(cartInHeader.data('refresh-url'));
 
         }
 
