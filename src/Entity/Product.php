@@ -50,7 +50,7 @@ class Product
     public function __construct()
     {
         $this->isTop = false;
-        $this->attrubuteValues = new ArrayCollection();
+        $this->attributeValues = new ArrayCollection();
     }
 
     public function __toString()
@@ -168,9 +168,10 @@ class Product
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\AttrubuteValue", mappedBy="product", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AttributeValue", mappedBy="product",
+     *      orphanRemoval=true, indexBy="attribute.id", cascade={"all"})
      */
-    private $attrubuteValues;
+    private $attributeValues;
 
     public function getImageFileName(): ?string
     {
@@ -197,30 +198,30 @@ class Product
     }
 
     /**
-     * @return Collection|AttrubuteValue[]
+     * @return Collection|AttributeValue[]
      */
-    public function getAttrubuteValues(): Collection
+    public function getAttributeValues(): Collection
     {
-        return $this->attrubuteValues;
+        return $this->attributeValues;
     }
 
-    public function addAttrubuteValue(AttrubuteValue $attrubuteValue): self
+    public function addAttributeValue(AttributeValue $attributeValue): self
     {
-        if (!$this->attrubuteValues->contains($attrubuteValue)) {
-            $this->attrubuteValues[] = $attrubuteValue;
-            $attrubuteValue->setProduct($this);
+        if (!$this->attributeValues->contains($attributeValue)) {
+            $this->attributeValues[$attributeValue->getAttribute()->getId()] = $attributeValue;
+            $attributeValue->setProduct($this);
         }
 
         return $this;
     }
 
-    public function removeAttrubuteValue(AttrubuteValue $attrubuteValue): self
+    public function removeAttributeValue(AttributeValue $attributeValue): self
     {
-        if ($this->attrubuteValues->contains($attrubuteValue)) {
-            $this->attrubuteValues->removeElement($attrubuteValue);
+        if ($this->attributeValues->contains($attributeValue)) {
+            $this->attributeValues->removeElement($attributeValue);
             // set the owning side to null (unless already changed)
-            if ($attrubuteValue->getProduct() === $this) {
-                $attrubuteValue->setProduct(null);
+            if ($attributeValue->getProduct() === $this) {
+                $attributeValue->setProduct(null);
             }
         }
 

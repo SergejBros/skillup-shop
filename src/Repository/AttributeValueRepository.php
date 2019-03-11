@@ -7,16 +7,16 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method AttrubuteValue|null find($id, $lockMode = null, $lockVersion = null)
- * @method AttrubuteValue|null findOneBy(array $criteria, array $orderBy = null)
- * @method AttrubuteValue[]    findAll()
- * @method AttrubuteValue[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method AttributeValue|null find($id, $lockMode = null, $lockVersion = null)
+ * @method AttributeValue|null findOneBy(array $criteria, array $orderBy = null)
+ * @method AttributeValue[]    findAll()
+ * @method AttributeValue[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AttrubuteValueRepository extends ServiceEntityRepository
+class AttributeValueRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, AttrubuteValue::class);
+        parent::__construct($registry, AttributeValue::class);
     }
 
     // /**

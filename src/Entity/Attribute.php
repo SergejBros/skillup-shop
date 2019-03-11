@@ -38,15 +38,15 @@ class Attribute
     private $categories;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\AttrubuteValue", mappedBy="attribute")
+     * @ORM\OneToMany(targetEntity="AttributeValue", mappedBy="attribute")
      */
-    private $attrubuteValues;
+    private $attributeValues;
 
     public function __construct()
     {
         $this->type = self::TYPE_INT;
         $this->categories = new ArrayCollection();
-        $this->attrubuteValues = new ArrayCollection();
+        $this->attributeValues = new ArrayCollection();
     }
 
     public function __toString()
@@ -112,30 +112,30 @@ class Attribute
     }
 
     /**
-     * @return Collection|AttrubuteValue[]
+     * @return Collection|AttributeValue[]
      */
-    public function getAttrubuteValues(): Collection
+    public function getAttributeValues(): Collection
     {
-        return $this->attrubuteValues;
+        return $this->attributeValues;
     }
 
-    public function addAttrubuteValue(AttrubuteValue $attrubuteValue): self
+    public function addAttributeValue(AttributeValue $attributeValue): self
     {
-        if (!$this->attrubuteValues->contains($attrubuteValue)) {
-            $this->attrubuteValues[] = $attrubuteValue;
-            $attrubuteValue->setAttribute($this);
+        if (!$this->attributeValues->contains($attributeValue)) {
+            $this->attributeValues[] = $attributeValue;
+            $attributeValue->setAttribute($this);
         }
 
         return $this;
     }
 
-    public function removeAttrubuteValue(AttrubuteValue $attrubuteValue): self
+    public function removeAttributeValue(AttributeValue $attributeValue): self
     {
-        if ($this->attrubuteValues->contains($attrubuteValue)) {
-            $this->attrubuteValues->removeElement($attrubuteValue);
+        if ($this->attributeValues->contains($attributeValue)) {
+            $this->attributeValues->removeElement($attributeValue);
             // set the owning side to null (unless already changed)
-            if ($attrubuteValue->getAttribute() === $this) {
-                $attrubuteValue->setAttribute(null);
+            if ($attributeValue->getAttribute() === $this) {
+                $attributeValue->setAttribute(null);
             }
         }
 

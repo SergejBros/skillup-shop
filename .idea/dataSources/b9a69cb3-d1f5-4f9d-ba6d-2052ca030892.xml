@@ -954,10 +954,10 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="243" parent="7" name="attributes">
+    <table id="243" parent="7" name="attribute_value">
       <Collation>utf8mb4_unicode_ci</Collation>
     </table>
-    <table id="244" parent="7" name="attrubute_value">
+    <table id="244" parent="7" name="attributes">
       <Collation>utf8mb4_unicode_ci</Collation>
     </table>
     <table id="245" parent="7" name="categories">
@@ -994,72 +994,72 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="255" parent="243" name="name">
+    <column id="255" parent="243" name="product_id">
       <Position>2</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="256" parent="243" name="type">
-      <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="257" parent="243" name="PRIMARY">
+    <column id="256" parent="243" name="attribute_id">
+      <Position>3</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="257" parent="243" name="value">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="258" parent="243" name="IDX_5AA3ED8E4584665A">
+      <ColNames>product_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="259" parent="243" name="IDX_5AA3ED8EB6E62EFA">
+      <ColNames>attribute_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="260" parent="243" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="258" parent="244" name="id">
+    <foreign-key id="261" parent="243" name="FK_5AA3ED8E4584665A">
+      <ColNames>product_id</ColNames>
+      <RefSchemaName>db_name</RefSchemaName>
+      <RefTableName>products</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="262" parent="243" name="FK_5AA3ED8EB6E62EFA">
+      <ColNames>attribute_id</ColNames>
+      <RefSchemaName>db_name</RefSchemaName>
+      <RefTableName>attributes</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="263" parent="244" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="259" parent="244" name="product_id">
+    <column id="264" parent="244" name="name">
       <Position>2</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="260" parent="244" name="attribute_id">
-      <Position>3</Position>
-      <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="261" parent="244" name="value">
-      <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="262" parent="244" name="IDX_5AA3ED8E4584665A">
-      <ColNames>product_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="263" parent="244" name="IDX_5AA3ED8EB6E62EFA">
-      <ColNames>attribute_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="264" parent="244" name="PRIMARY">
+    <column id="265" parent="244" name="type">
+      <Position>3</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="266" parent="244" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="265" parent="244" name="FK_5AA3ED8E4584665A">
-      <ColNames>product_id</ColNames>
-      <RefSchemaName>db_name</RefSchemaName>
-      <RefTableName>products</RefTableName>
-      <RefColNames>id</RefColNames>
-    </foreign-key>
-    <foreign-key id="266" parent="244" name="FK_5AA3ED8EB6E62EFA">
-      <ColNames>attribute_id</ColNames>
-      <RefSchemaName>db_name</RefSchemaName>
-      <RefTableName>attributes</RefTableName>
-      <RefColNames>id</RefColNames>
-    </foreign-key>
     <column id="267" parent="245" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>

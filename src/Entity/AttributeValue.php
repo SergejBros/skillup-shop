@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\AttrubuteValueRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\AttributeValueRepository")
  */
-class AttrubuteValue
+class AttributeValue
 {
     /**
      * @ORM\Id()
@@ -17,13 +17,13 @@ class AttrubuteValue
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="attrubuteValues")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="attributeValues")
      * @ORM\JoinColumn(nullable=false)
      */
     private $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Attribute", inversedBy="attrubuteValues")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Attribute", inversedBy="attributeValues")
      */
     private $attribute;
 

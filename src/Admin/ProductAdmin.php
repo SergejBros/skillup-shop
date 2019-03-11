@@ -15,6 +15,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -60,7 +61,14 @@ class ProductAdmin extends AbstractAdmin
         if($this->isCurrentRoute('attributes'))
         {
             $form
-                ->add('attrubuteValues');
+                ->add('attributeValues',
+                 CollectionType::class, [
+                'by_reference' => false
+            ],
+            [
+                'edit' => 'inline',
+                'inline' => 'table',
+            ]);
         }
         else {
 
@@ -89,7 +97,7 @@ class ProductAdmin extends AbstractAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->add('attributes', $this->getRouterIdParameter().'/attributes', [
-            '_controller' => $this->getBaseControllerName() . ':editAction',
+            '_controller' => $this->getBaseControllerName() . ':attributesAction',
         ]);
     }
 
