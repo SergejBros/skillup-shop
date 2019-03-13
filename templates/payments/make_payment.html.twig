@@ -1,13 +1,8 @@
-{% extends 'base.html.twig' %}
+    <div style="display: none;">
+        {{ payment_form|raw }}
+    </div>
 
-{% block title %}
-    Оплата заказа № {{ order.id }}
-{% endblock %}
-
-{% block body %}
-    <h1>Оплата заказа № {{ order.id }}</h1>
-    <p>Сумма: {{ order.amount|money }}</p>
-    {{ payment_form|raw }}
-{% endblock %}
-
+    <script>
+        document.querySelector('form').submit();
+    </script>
 
