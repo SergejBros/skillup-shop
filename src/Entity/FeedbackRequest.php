@@ -94,7 +94,7 @@ class FeedbackRequest
         return $this->createdAt;
     }
 
-    public function FeedbackRequestsetCreatedAt(\DateTimeInterface $createdAt): self
+    public function CreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
         return $this;
