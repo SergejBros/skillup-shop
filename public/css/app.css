@@ -96,3 +96,16 @@
         -webkit-transform: rotate(360deg);
     }
 }
+
+
+.search-form{
+    position: relative;
+}
+
+.search-form .list-group{
+    position: absolute;
+    left: 0;
+    top: 2.5rem;
+    z-index: 5;
+
+}

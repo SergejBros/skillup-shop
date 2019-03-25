@@ -57,3 +57,33 @@ function mask() {
 function unmask() {
     $('.lmask').remove();
 }
+
+var headerSearchForm = $('#header-search-form');
+var headerSearchResult = $('#header-search-results');
+var resultClicked = false;
+
+headerSearchForm.find('input').on('input', function () {
+    var query = this.value;
+
+    if(query.length >= 2 ){
+        headerSearchForm.submit();
+    }
+    else{
+        headerSearchResult.html('');
+    }
+})
+.on('blur', function () {
+    setTimeout(function () {
+        headerSearchResult.html('');
+    }, 500);
+
+});
+
+headerSearchForm.on('submit', function (event) {
+    event.preventDefault();
+
+    $.get(headerSearchForm.attr('action'), headerSearchForm.serialize(), function (data) {
+      headerSearchResult.html(data);
+    })
+});
+
